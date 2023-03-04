@@ -61,7 +61,6 @@ namespace L01_2020_VV_601.Controllers
                 return NotFound();
 
             }
-            publiAc.publicacionId = publiMod.publicacionId;
             publiAc.titulo = publiMod.titulo;
             publiAc.descripcion = publiMod.descripcion;
 
@@ -83,12 +82,24 @@ namespace L01_2020_VV_601.Controllers
                 return NotFound();
 
             }
-            _publicacionesContext.publicaciones.Attach(publicacion);
+            _publicacionesContext.Attach(publicacion);
             _publicacionesContext.publicaciones.Remove(publicacion);
             _publicacionesContext.SaveChanges();
             return Ok(publicacion);
         }
-
+        [HttpGet]
+        [Route("Find/{pub}")]
+        public IActionResult FindPub(int pub)
+        {
+            publicaciones? publicacion = (from e in _publicacionesContext.publicaciones
+                                          where e.usuarioId == pub
+                                           select e).FirstOrDefault();
+            if (publicacion == null)
+            {
+                return NotFound();
+            }
+            return Ok(publicacion);
+        }
 
     }
 }

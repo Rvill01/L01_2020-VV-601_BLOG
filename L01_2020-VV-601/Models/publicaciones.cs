@@ -9,7 +9,7 @@ namespace L01_2020_VV_601.Models
 
         public string descripcion { get; set; }
 
-        public int? usuario { get; set; }
+        public int? usuarioId { get; set; }
 
     }
 }
